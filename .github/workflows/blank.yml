@@ -22,5 +22,5 @@ jobs:
 
       - name: Run command
         if: steps.cache-data.outputs.cache-hit != 'true'
-        run: do_something.bat
+        run: .\do_something.bat
 
