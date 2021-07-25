@@ -1,0 +1,26 @@
+name: Cache Test
+
+on: 
+  push:
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Cache Application Data
+        id: cache-data
+        uses: actions/cache@v2
+        with:
+          path: output/something.txt
+          key: ${{ runner.os }}-output
+
+      - name: Run command
+        if: steps.cache-data.outputs.cache-hit != 'true'
+        run: do_something.bat
+
